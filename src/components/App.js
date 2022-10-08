@@ -32,6 +32,7 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isRegistered, setIsRegistered] = React.useState(false)
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
   //Проверяем открыт ли хоть один попап
@@ -116,14 +117,13 @@ function App() {
 
   function handleRegister(email, password) {
     register(email, password)
-      .then(res => {
-        console.log(res);
-        // setIsInfoTooltipOpen(true);
-        navigate('/sign-in');
+      .then(() => {
+        setIsRegistered(true)
+        setIsInfoTooltipOpen(true)
       })
       .catch(err => console.log(err));
-  }
-
+    }
+    
   function handleLogin(email, password) {
     login(email, password)
       .then(res => {
@@ -131,6 +131,11 @@ function App() {
         setIsLoggedIn(true);
         navigate('/');
       })
+  }
+
+  function handleInfoTooltipClose() {
+    closeAllPopups();
+    navigate('/sign-in');
   }
 
   //Обработчик лайков
@@ -214,7 +219,7 @@ function App() {
           />} />
           <Route path='/sign-up' element={<Register
             onSubmit={handleRegister}
-            loggedIn={isLoggedIn}
+            registered={isRegistered}
           />} />
         </Routes>
         <Footer />
@@ -253,8 +258,8 @@ function App() {
         <InfoTooltip 
           name='register'
           isOpen={isInfoTooltipOpen}
-          onClose={closeAllPopups}
-          loggedIn={isLoggedIn}
+          onClose={handleInfoTooltipClose}
+          registered={isRegistered}
         />
       </div>
     </CurrentUserContext.Provider>

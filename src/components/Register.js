@@ -4,7 +4,7 @@ import { useForm } from "../hooks/useForm";
 
 
 function Register(props) {
-  const { loggedIn, onSubmit } = props;
+  const { registered, onSubmit } = props;
   const { values, setValues, handleChange } = useForm({});
 
   function handleSubmit(e) {
@@ -14,7 +14,7 @@ function Register(props) {
 
   React.useEffect(() => {
     setValues({ email: '', password: '' })
-  }, [loggedIn, setValues])
+  }, [registered, setValues])
 
 
   return(
