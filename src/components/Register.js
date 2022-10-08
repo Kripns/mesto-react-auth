@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 
-function SignUp() {
+function Register() {
 
   return(
     <div className="auth">
@@ -19,4 +19,4 @@ function SignUp() {
   )
 }
 
-export default SignUp;
+export default Register;

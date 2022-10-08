@@ -1,9 +1,10 @@
 import React from 'react';
-import {Routes, Route, Navigate } from 'react-router-dom';
+import {Routes, Route } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
-import SignIn from './SignIn';
-import SignUp from './SignUp';
+import Login from './Login';
+import Register from './Register';
+import ProtectedRoute from './ProtectedRoute';
 import Footer from './Footer';
 import EditPropfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
@@ -169,25 +170,21 @@ function App() {
           <Route
             path='/'
             element={
-              isLoggedIn ? <Navigate to='/' /> : <Navigate to='/sign-in' />
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <Main
+                  onEditProfile={handleEditProfileClick}
+                  onEditAvatar={handleEditAvatarClick}
+                  onAddPlace={handleAddPlaceClick}
+                  onCardClick={handleCardClick}
+                  cards={cards}
+                  onCardLike={handleCardLike}
+                  onCardDelete={handleRemoveCardclick}
+                />
+              </ProtectedRoute>
             }
           />
-          <Route
-            path='/'
-            element={
-              <Main
-                onEditProfile={handleEditProfileClick}
-                onEditAvatar={handleEditAvatarClick}
-                onAddPlace={handleAddPlaceClick}
-                onCardClick={handleCardClick}
-                cards={cards}
-                onCardLike={handleCardLike}
-                onCardDelete={handleRemoveCardclick}
-              />
-            }
-          />
-          <Route path='/sign-in' element={<SignIn />} />
-          <Route path='/sign-up' element={<SignUp />} />
+          <Route path='/sign-in' element={<Login />} />
+          <Route path='/sign-up' element={<Register />} />
         </Routes>
         <Footer />
         <EditPropfilePopup

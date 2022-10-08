@@ -23,10 +23,6 @@ function Header() {
           <Route path='/sign-up' element={<Link to='/sign-in'>Войти</Link>} />
         </Routes>
       </nav>
-
-      {/* {!loggedIn 
-        ? <Link to='/sign-in'>Регистрация</Link>
-        : <Link to={'/'}>Выйти</Link>} */}
     </header>
   );
 }

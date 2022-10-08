@@ -1,7 +1,7 @@
 import React from "react";
 
 
-function SignIn() {
+function Login() {
 
   return(
     <div className="auth">
@@ -15,4 +15,4 @@ function SignIn() {
   )
 }
 
-export default SignIn;
+export default Login;
