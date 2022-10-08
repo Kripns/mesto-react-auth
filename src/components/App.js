@@ -41,7 +41,8 @@ function App() {
     isEditAvatarPopupOpen ||
     isEditProfilePopupOpen ||
     isImagePopupOpen ||
-    isConfirmationPopupOpen;
+    isConfirmationPopupOpen ||
+    isInfoTooltipOpen;
 
     const navigate = useNavigate();
 
@@ -118,10 +119,11 @@ function App() {
   function handleRegister(email, password) {
     register(email, password)
       .then(() => {
-        setIsRegistered(true)
-        setIsInfoTooltipOpen(true)
+        setIsRegistered(true);
+        navigate('/sign-in');
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(() => setIsInfoTooltipOpen(true))
     }
     
   function handleLogin(email, password) {
@@ -131,11 +133,6 @@ function App() {
         setIsLoggedIn(true);
         navigate('/');
       })
-  }
-
-  function handleInfoTooltipClose() {
-    closeAllPopups();
-    navigate('/sign-in');
   }
 
   //Обработчик лайков
@@ -258,7 +255,7 @@ function App() {
         <InfoTooltip 
           name='register'
           isOpen={isInfoTooltipOpen}
-          onClose={handleInfoTooltipClose}
+          onClose={closeAllPopups}
           registered={isRegistered}
         />
       </div>

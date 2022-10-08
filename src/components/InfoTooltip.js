@@ -1,5 +1,6 @@
 import React from "react";
 
+
 function InfoTooltip(props) {
   const { name, isOpen, onClose, registered } = props;
 
