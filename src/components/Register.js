@@ -4,12 +4,12 @@ import { useForm } from "../hooks/useForm";
 
 
 function Register(props) {
-  const { loggedIn, onRegister } = props;
+  const { loggedIn, onSubmit } = props;
   const { values, setValues, handleChange } = useForm({});
 
   function handleSubmit(e) {
     e.preventDefault();
-    onRegister(values.email, values.password);
+    onSubmit(values.email, values.password);
   }
 
   React.useEffect(() => {

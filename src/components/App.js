@@ -12,7 +12,7 @@ import AddPlacePopup from './AddPlacePopup';
 import ConfirmationPopup from './ConfirmationPopup';
 import ImagePopup from './ImagePopup';
 import api from '../utils/Api';
-import { register } from '../utils/Auth';
+import { register, login } from '../utils/Auth';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import InfoTooltip from './InfoTooltip';
 
@@ -121,6 +121,16 @@ function App() {
         // setIsInfoTooltipOpen(true);
         navigate('/sign-in');
       })
+      .catch(err => console.log(err));
+  }
+
+  function handleLogin(email, password) {
+    login(email, password)
+      .then(res => {
+        console.log(res);
+        setIsLoggedIn(true);
+        navigate('/');
+      })
   }
 
   //Обработчик лайков
@@ -198,9 +208,12 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path='/sign-in' element={<Login />} />
+          <Route path='/sign-in' element={<Login 
+            onSubmit={handleLogin}
+            loggedIn={isLoggedIn}
+          />} />
           <Route path='/sign-up' element={<Register
-            onRegister={handleRegister}
+            onSubmit={handleRegister}
             loggedIn={isLoggedIn}
           />} />
         </Routes>
