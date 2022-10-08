@@ -1,6 +1,9 @@
 import React from 'react';
+import {Routes, Route, Navigate } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
 import Footer from './Footer';
 import EditPropfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
@@ -25,6 +28,7 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
   //Проверяем открыт ли хоть один попап
   const isOpen =
@@ -160,16 +164,31 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='App'>
-        <Header />
-        <Main
-          onEditProfile={handleEditProfileClick}
-          onEditAvatar={handleEditAvatarClick}
-          onAddPlace={handleAddPlaceClick}
-          onCardClick={handleCardClick}
-          cards={cards}
-          onCardLike={handleCardLike}
-          onCardDelete={handleRemoveCardclick}
-        />
+        <Header loggedIn={isLoggedIn} />
+        <Routes>
+          <Route
+            path='/'
+            element={
+              isLoggedIn ? <Navigate to='/' /> : <Navigate to='/sign-in' />
+            }
+          />
+          <Route
+            path='/'
+            element={
+              <Main
+                onEditProfile={handleEditProfileClick}
+                onEditAvatar={handleEditAvatarClick}
+                onAddPlace={handleAddPlaceClick}
+                onCardClick={handleCardClick}
+                cards={cards}
+                onCardLike={handleCardLike}
+                onCardDelete={handleRemoveCardclick}
+              />
+            }
+          />
+          <Route path='/sign-in' element={<SignIn />} />
+          <Route path='/sign-up' element={<SignUp />} />
+        </Routes>
         <Footer />
         <EditPropfilePopup
           isOpen={isEditProfilePopupOpen}
