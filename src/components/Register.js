@@ -20,25 +20,29 @@ function Register(props) {
   return(
     <div className="auth">
       <h2 className="auth__heading">Регистрация</h2>
-      <form className="auth__form" onSubmit={handleSubmit}>
+      <form className="form form_place_auth" onSubmit={handleSubmit}>
         <input 
+          className="form__input form__input_place_auth"
           name="email"
           placeholder="Email" 
           type="email"
           value={values.email || ''}
           onChange={handleChange}
           />
-        <input 
+        <span className='form__error email-input-error'></span>
+        <input
+          className="form__input form__input_place_auth" 
           name="password"
           placeholder="Пароль" 
           type="password"
           value={values.password || ''}
           onChange={handleChange}
           />
-        <button type="submit">Зарегистрироваться</button>
+        <span className='form__error password-input-error'></span>
+        <button className='form__button form__button_place_auth' type="submit">Зарегистрироваться</button>
       </form>
-      <p>
-        Уже зарегистрированы?<Link to='/sign-in'> Войти</Link>
+      <p className="auth__subheading">
+        Уже зарегистрированы?<Link className="auth__link" to='/sign-in'> Войти</Link>
       </p>
     </div>
   )

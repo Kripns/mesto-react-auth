@@ -1,5 +1,5 @@
-import React from "react";
-import { useForm } from "../hooks/useForm";
+import React from 'react';
+import { useForm } from '../hooks/useForm';
 
 function Login(props) {
   const { loggedIn, onSubmit } = props;
@@ -11,33 +11,35 @@ function Login(props) {
   }
 
   React.useEffect(() => {
-    setValues({ email: '', password: '' })
-  }, [loggedIn, setValues])
+    setValues({ email: '', password: '' });
+  }, [loggedIn, setValues]);
 
   return(
     <div className="auth">
       <h2 className="auth__heading">Вход</h2>
-      <form className="auth__form" onSubmit={handleSubmit}>
-      <input 
+      <form className="form form_place_auth" onSubmit={handleSubmit}>
+        <input 
+          className="form__input form__input_place_auth"
           name="email"
           placeholder="Email" 
           type="email"
           value={values.email || ''}
           onChange={handleChange}
           />
-        <input 
+        <span className='form__error email-input-error'></span>
+        <input
+          className="form__input form__input_place_auth" 
           name="password"
           placeholder="Пароль" 
           type="password"
           value={values.password || ''}
           onChange={handleChange}
           />
-        <button type="submit">Войти</button>
+        <span className='form__error password-input-error'></span>
+        <button className='form__button form__button_place_auth' type="submit">Войти</button>
       </form>
     </div>
-
   )
-  
 }
 
 export default Login;

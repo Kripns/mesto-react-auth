@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
-import Login from './Login';
+// import Login from './Login';
 import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
 import Footer from './Footer';
@@ -12,7 +12,7 @@ import AddPlacePopup from './AddPlacePopup';
 import ConfirmationPopup from './ConfirmationPopup';
 import ImagePopup from './ImagePopup';
 import api from '../utils/Api';
-import { register, login } from '../utils/Auth';
+import { register, login, checkToken } from '../utils/Auth';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import InfoTooltip from './InfoTooltip';
 
@@ -25,15 +25,16 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] =
     React.useState(false);
-  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false)
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [cardForRemoving, setCardForRemoving] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [isRegistered, setIsRegistered] = React.useState(false)
+  const [isRegistered, setIsRegistered] = React.useState(false);
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [email, setEmail] = React.useState('');
 
   //Проверяем открыт ли хоть один попап
   const isOpen =
@@ -44,7 +45,7 @@ function App() {
     isConfirmationPopupOpen ||
     isInfoTooltipOpen;
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   //Обработчики открытия попапов
   function handleEditAvatarClick() {
@@ -76,7 +77,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsImagePopupOpen(false);
     setIsConfirmationPopupOpen(false);
-    setIsInfoTooltipOpen(false)
+    setIsInfoTooltipOpen(false);
   }
 
   //Обработчики сабмитов
@@ -117,22 +118,35 @@ function App() {
   }
 
   function handleRegister(email, password) {
+    if(!email || !password) { return }
+
     register(email, password)
       .then(() => {
         setIsRegistered(true);
         navigate('/sign-in');
       })
       .catch(err => console.log(err))
-      .finally(() => setIsInfoTooltipOpen(true))
-    }
-    
+      .finally(() => setIsInfoTooltipOpen(true));
+  }
+
   function handleLogin(email, password) {
+    if(!email || !password) { return }
+
     login(email, password)
-      .then(res => {
-        console.log(res);
-        setIsLoggedIn(true);
-        navigate('/');
+      .then(data => {
+        if (data.token) {
+          setIsLoggedIn(true);
+          setEmail(email)
+          navigate('/');
+        }
       })
+      .catch(err => console.log(err));
+  }
+
+  function handleLogout() {
+    localStorage.removeItem('token');
+    setEmail('')
+    navigate('/sign-in');
   }
 
   //Обработчик лайков
@@ -140,10 +154,10 @@ function App() {
     const isLiked = card.likes.some(i => currentUser._id === i._id);
     api
       .changeLikeCardStatus(card._id, isLiked)
-      .then((newCard) => {
-        setCards(state => state.map((c) => c._id === card._id ? newCard : c));
+      .then(newCard => {
+        setCards(state => state.map(c => (c._id === card._id ? newCard : c)));
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
   }
 
   //Обработчик удаления карточки
@@ -152,7 +166,9 @@ function App() {
     api
       .deleteCard(cardForRemoving._id)
       .then(() => {
-        setCards(state => state.filter(item => item._id !== cardForRemoving._id));
+        setCards(state =>
+          state.filter(item => item._id !== cardForRemoving._id)
+        );
         closeAllPopups();
       })
       .catch(err => console.log(err))
@@ -160,6 +176,21 @@ function App() {
   }
 
   //Эффекты
+  React.useEffect(() => {
+    if (!localStorage.getItem('token')) {
+      return;
+    }
+    checkToken()
+      .then(res => {
+        if (res) {
+          setEmail(res.data.email);
+          setIsLoggedIn(true);
+          navigate('/');
+        }
+      })
+      .catch(err => console.log(err));
+  }, []);
+
   React.useEffect(() => {
     api
       .getCards()
@@ -192,7 +223,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='App'>
-        <Header loggedIn={isLoggedIn} />
+        <Header email={email} handleLogout={handleLogout} />
         <Routes>
           <Route
             path='/'
@@ -210,14 +241,16 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path='/sign-in' element={<Login 
-            onSubmit={handleLogin}
-            loggedIn={isLoggedIn}
-          />} />
-          <Route path='/sign-up' element={<Register
-            onSubmit={handleRegister}
-            registered={isRegistered}
-          />} />
+          <Route
+            path='/sign-in'
+            element={<Login onSubmit={handleLogin} loggedIn={isLoggedIn} />}
+          />
+          <Route
+            path='/sign-up'
+            element={
+              <Register onSubmit={handleRegister} registered={isRegistered} />
+            }
+          />
         </Routes>
         <Footer />
         <EditPropfilePopup
@@ -252,7 +285,7 @@ function App() {
           card={selectedCard}
           onClose={closeAllPopups}
         />
-        <InfoTooltip 
+        <InfoTooltip
           name='register'
           isOpen={isInfoTooltipOpen}
           onClose={closeAllPopups}

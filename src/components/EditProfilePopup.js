@@ -27,7 +27,7 @@ function EditPropfilePopup(props) {
       buttonText={isLoading ? 'Сохранение...' : 'Сохранить'}
     >
       <input
-        className='popup__input popup__input_type_name'
+        className='form__input form__input_place_popup form__input_type_name'
         name='name'
         id='user-name-input'
         type='text'
@@ -38,9 +38,9 @@ function EditPropfilePopup(props) {
         maxLength='40'
         required
       />
-      <span className='popup__error user-name-input-error'></span>
+      <span className='form__error user-name-input-error'></span>
       <input
-        className='popup__input popup__input_type_job'
+        className='form__input form__input_place_popup form__input_type_job'
         name='about'
         id='user-job-input'
         type='text'
@@ -51,7 +51,7 @@ function EditPropfilePopup(props) {
         maxLength='200'
         required
       />
-      <span className='popup__error user-job-input-error'></span>
+      <span className='form__error user-job-input-error'></span>
     </PopupWithForm>
   );
 }

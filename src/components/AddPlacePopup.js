@@ -25,7 +25,7 @@ function AddPlacePopup(props) {
       buttonText={isLoading ? 'Сохранение...' : 'Создать'}
     >
       <input
-        className='popup__input popup__input_type_place-name'
+        className='form__input form__input_place_popup form__input_type_place-name'
         name='name'
         value={values.name || ''}
         onChange={handleChange}
@@ -36,9 +36,9 @@ function AddPlacePopup(props) {
         maxLength='30'
         required
       />
-      <span className='popup__error place-name-input-error'></span>
+      <span className='form__error place-name-input-error' />
       <input
-        className='popup__input popup__input_type_url'
+        className='form__input form__input_place_popup form__input_type_url'
         name='link'
         value={values.link || ''}
         onChange={handleChange}
@@ -47,7 +47,7 @@ function AddPlacePopup(props) {
         placeholder='Ссылка на картинку'
         required
       />
-      <span className='popup__error picture-link-input-error'></span>
+      <span className='form__error picture-link-input-error' />
     </PopupWithForm>
   );
 }

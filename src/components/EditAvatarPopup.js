@@ -24,7 +24,7 @@ function EditAvatarPopup(props) {
       buttonText={isLoading? 'Сохранение...' : 'Сохранить'}
     >
       <input
-        className='popup__input popup__input_type_url'
+        className='form__input form__input_place_popup form__input_type_url'
         name='avatar'
         ref={inputRef}
         id='avatar-link-input'
@@ -32,7 +32,7 @@ function EditAvatarPopup(props) {
         placeholder='Ссылка на аватар'
         required
       />
-      <span className='popup__error avatar-link-input-error'></span>
+      <span className='form__error avatar-link-input-error'></span>
     </PopupWithForm>
   );
 }
