@@ -250,7 +250,7 @@ function App() {
           />
           <Route
             path='/sign-in'
-            element={<Login onSubmit={handleLogin} loggedIn={isLoggedIn} />}
+            element={<Login onSubmit={handleLogin} />}
           />
           <Route
             path='/sign-up'

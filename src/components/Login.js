@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from '../hooks/useForm';
 
 function Login(props) {
-  const { loggedIn, onSubmit } = props;
+  const { onSubmit } = props;
   const { values, setValues, handleChange } = useForm({});
 
   function handleSubmit(e) {
