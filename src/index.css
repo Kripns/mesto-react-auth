@@ -1,5 +1,4 @@
 
-
 @import url(./vendor/normalize.css);
 @import url(./fonts/fonts.css);
 
@@ -7,16 +6,12 @@
 
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
-/* @import url(./blocks/header/__auth-info/header__auth-info.css);
-@import url(./blocks/header/__email/header__email.css); */
 @import url(./blocks/header/__menu/header__menu.css);
-/* @import url(./blocks/header/__button/header__button.css); */
-/* @import url(./blocks/header/__link/header__link.css); */
 
-@import url(./blocks/auth/auth.css);
-@import url(./blocks/auth/__heading/auth__heading.css);
-@import url(./blocks/auth/__subheading/auth__subheading.css);
-@import url(./blocks/auth/__link/auth__link.css);
+@import url(./blocks/auth-page/auth-page.css);
+@import url(./blocks/auth-page/__heading/auth-page__heading.css);
+@import url(./blocks/auth-page/__subheading/auth-page__subheading.css);
+@import url(./blocks/auth-page/__link/auth-page__link.css);
 
 @import url(./blocks/auth-info/auth-info.css);
 @import url(./blocks/auth-info/__email/auth-info__email.css);

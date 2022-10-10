@@ -1,4 +1,4 @@
-.auth__heading {
+.auth-page__heading {
   font-weight: 900;
   font-size: 24px;
   line-height: 29px;
@@ -7,7 +7,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .auth__heading {
+  .auth-page__heading {
     font-weight: 900;
     font-size: 20px;
     line-height: 24px;

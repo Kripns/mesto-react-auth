@@ -1,9 +1,9 @@
-.auth__link {
+.auth-page__link {
   color: #fff;
   text-decoration: none;
   transition: opacity .3s;
 }
 
-.auth__link:hover {
+.auth-page__link:hover {
   opacity: .6;
 }

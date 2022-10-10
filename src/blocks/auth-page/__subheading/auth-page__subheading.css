@@ -1,4 +1,4 @@
-.auth__subheading {
+.auth-page__subheading {
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
@@ -7,7 +7,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .auth__subheading {
+  .auth-page__subheading {
     padding-top: 20px;
   }
 }

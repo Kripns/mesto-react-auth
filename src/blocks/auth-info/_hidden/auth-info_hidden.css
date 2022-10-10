@@ -1,10 +1,5 @@
-.auth-info_place_hidden {
-  
-  height: 0;
-  
-  /* padding-block: 40px; */
-  
+.auth-info_hidden {
+  opacity: 0;
   transform: scaleY(0);
-  transform-origin: left top;
-  transition: transform .3s, height .3s;
+  height: 0;
 }

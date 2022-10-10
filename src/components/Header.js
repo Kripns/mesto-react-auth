@@ -12,8 +12,8 @@ function Header(props) {
 
   function handleMenuOpen() {
     isMenuOpen
-    ? setIsBurgerMenuOpen(true)
-    :setIsBurgerMenuOpen(false);
+    ? setIsBurgerMenuOpen(false)
+    : setIsBurgerMenuOpen(true);
   }
 
   React.useEffect(() => {
@@ -51,7 +51,7 @@ function Header(props) {
             path='/'
             element={
               <>
-                <div className={`auth-info  ${!isMenuOpen ? 'auth-info_hidden' : 'auth-info_visible'}`}>
+                <div className={`auth-info ${!isMenuOpen ? 'auth-info_hidden' : 'auth-info_visible'}`}>
                   <p className='auth-info__email'>{email}</p>
                   <button className='auth-info__button' onClick={handleLogout}>
                     Выйти
