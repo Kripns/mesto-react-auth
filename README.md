@@ -1,4 +1,4 @@
-## [Ссылка на сайт](https://kripns.github.io/mesto-react-auth/)
+## [Ссылка на сайт](https://Kripns.github.io/react-mesto-auth)
 
 # Здесь будет ваш проект на Реакте с авторизацией и регистрацией
 
