@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useForm } from '../hooks/useForm';
 
 function Register(props) {
-  const { registered, onSubmit } = props;
+  const { onSubmit } = props;
   const { values, setValues, handleChange } = useForm({});
 
   function handleSubmit(e) {

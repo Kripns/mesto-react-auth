@@ -11,11 +11,10 @@ function Header(props) {
   const [isMenuOpen, setIsBurgerMenuOpen] = React.useState(false);
 
   function handleMenuOpen() {
-    isMenuOpen
-    ? setIsBurgerMenuOpen(false)
-    : setIsBurgerMenuOpen(true);
+    isMenuOpen ? setIsBurgerMenuOpen(false) : setIsBurgerMenuOpen(true);
   }
 
+  //Подписываемся на изменение размера экрана
   React.useEffect(() => {
     window
       .matchMedia('(max-width: 768px)')
@@ -51,7 +50,11 @@ function Header(props) {
             path='/'
             element={
               <>
-                <div className={`auth-info ${!isMenuOpen ? 'auth-info_hidden' : 'auth-info_visible'}`}>
+                <div
+                  className={`auth-info ${
+                    !isMenuOpen ? 'auth-info_hidden' : 'auth-info_visible'
+                  }`}
+                >
                   <p className='auth-info__email'>{email}</p>
                   <button className='auth-info__button' onClick={handleLogout}>
                     Выйти
@@ -60,7 +63,10 @@ function Header(props) {
                 <header className='header'>
                   <img className='header__logo' src={path} alt='логотип' />
                   <nav className='header__menu'>
-                    <BurgerMenu isOpen={isMenuOpen} handleClick={handleMenuOpen}/>
+                    <BurgerMenu
+                      isOpen={isMenuOpen}
+                      handleClick={handleMenuOpen}
+                    />
                   </nav>
                 </header>
               </>

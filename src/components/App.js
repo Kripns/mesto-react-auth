@@ -121,7 +121,6 @@ function App() {
     if (!email || !password) {
       return;
     }
-
     register(email, password)
       .then(res => {
         if (res) {
@@ -140,7 +139,6 @@ function App() {
     if (!email || !password) {
       return;
     }
-
     login(email, password)
       .then(data => {
         if (data.token) {
@@ -257,7 +255,7 @@ function App() {
           <Route
             path='/sign-up'
             element={
-              <Register onSubmit={handleRegister} registered={isRegistered} />
+              <Register onSubmit={handleRegister} />
             }
           />
         </Routes>
