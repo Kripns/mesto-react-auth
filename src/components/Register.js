@@ -14,7 +14,7 @@ function Register(props) {
 
   React.useEffect(() => {
     setValues({ email: '', password: '' })
-  }, [registered, setValues])
+  }, [setValues])
 
 
   return(

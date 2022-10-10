@@ -9,8 +9,8 @@ function InfoTooltip(props) {
       <div className='popup__container'>
         <button className='popup__close-icon' type='button' onClick={onClose} />
         <div
-          className={`popup__register-status ${
-            registered && 'popup__register-status_ok'
+          className={`popup__registration-status ${
+            registered && 'popup__registration-status_ok'
           }`}
         />
         <p className='popup__text'>

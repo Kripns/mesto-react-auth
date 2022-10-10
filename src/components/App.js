@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
-// import Login from './Login';
+import Login from './Login';
 import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
 import Footer from './Footer';
@@ -118,25 +118,34 @@ function App() {
   }
 
   function handleRegister(email, password) {
-    if(!email || !password) { return }
+    if (!email || !password) {
+      return;
+    }
 
     register(email, password)
-      .then(() => {
-        setIsRegistered(true);
-        navigate('/sign-in');
+      .then(res => {
+        if (res) {
+          setIsRegistered(true);
+          navigate('/sign-in');
+        }
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err);
+        setIsRegistered(false);
+      })
       .finally(() => setIsInfoTooltipOpen(true));
   }
 
   function handleLogin(email, password) {
-    if(!email || !password) { return }
+    if (!email || !password) {
+      return;
+    }
 
     login(email, password)
       .then(data => {
         if (data.token) {
           setIsLoggedIn(true);
-          setEmail(email)
+          setEmail(email);
           navigate('/');
         }
       })
@@ -145,8 +154,9 @@ function App() {
 
   function handleLogout() {
     localStorage.removeItem('token');
-    setEmail('')
+    setEmail('');
     navigate('/sign-in');
+    setIsLoggedIn(false);
   }
 
   //Обработчик лайков
@@ -211,7 +221,6 @@ function App() {
         closeAllPopups();
       }
     }
-
     if (isOpen) {
       document.addEventListener('keydown', closeByEscape);
       return () => {

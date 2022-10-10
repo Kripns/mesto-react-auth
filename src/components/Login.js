@@ -12,7 +12,7 @@ function Login(props) {
 
   React.useEffect(() => {
     setValues({ email: '', password: '' });
-  }, [loggedIn, setValues]);
+  }, [setValues]);
 
   return(
     <div className="auth">
