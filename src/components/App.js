@@ -1,9 +1,8 @@
 import React from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
-import Login from './Login';
-import Register from './Register';
+import AuthForm from './AuthForm';
 import ProtectedRoute from './ProtectedRoute';
 import Footer from './Footer';
 import EditPropfilePopup from './EditProfilePopup';
@@ -250,12 +249,30 @@ function App() {
           />
           <Route
             path='/sign-in'
-            element={<Login onSubmit={handleLogin} />}
+            element={
+              <AuthForm
+                heading='Вход'
+                buttonText='Войти'
+                onSubmit={handleLogin}
+              />
+            }
           />
           <Route
             path='/sign-up'
             element={
-              <Register onSubmit={handleRegister} />
+              <AuthForm
+                heading='Регистрация'
+                buttonText='Зарегистрироваться'
+                onSubmit={handleRegister}
+              >
+                <p className='auth__subheading'>
+                  Уже зарегистрированы?
+                  <Link className='auth-page__link' to='/sign-in'>
+                    {' '}
+                    Войти
+                  </Link>
+                </p>
+              </AuthForm>
             }
           />
         </Routes>
