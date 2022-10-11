@@ -8,10 +8,10 @@ function Header(props) {
   const [matches, setMatches] = React.useState(
     window.matchMedia('(max-width: 768px)').matches
   );
-  const [isMenuOpen, setIsBurgerMenuOpen] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   function handleMenuOpen() {
-    isMenuOpen ? setIsBurgerMenuOpen(false) : setIsBurgerMenuOpen(true);
+    isMenuOpen ? setIsMenuOpen(false) : setIsMenuOpen(true);
   }
 
   //Подписываемся на изменение размера экрана
@@ -20,6 +20,7 @@ function Header(props) {
       .matchMedia('(max-width: 768px)')
       .addEventListener('change', e => setMatches(e.matches));
   }, []);
+
 
   return (
     <>

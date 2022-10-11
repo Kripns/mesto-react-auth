@@ -13,7 +13,7 @@ function ConfirmationPopup(props) {
       <div className='popup__container'>
         <button className='popup__close-icon' type='button' onClick={onClose} />
         <h2 className='popup__heading'>{title}</h2>
-        <button className='popup__button' type='button' onClick={handleSubmit}>
+        <button className='form__button form__button_place_popup' type='button' onClick={handleSubmit}>
           {buttonText}
         </button>
       </div>
