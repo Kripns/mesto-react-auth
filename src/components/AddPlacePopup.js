@@ -1,10 +1,12 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
-import { useForm } from '../hooks/useForm';
+import useFormAndValidation from '../hooks/useFormAndValidation';
+
 
 function AddPlacePopup(props) {
   const { isOpen, onClose, isLoading, onSubmit } = props;
-  const { values, setValues, handleChange } = useForm({});
+  const { values, errors, isValid, handleChange, resetForm } =
+    useFormAndValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -12,8 +14,8 @@ function AddPlacePopup(props) {
   }
 
   React.useEffect(() => {
-    setValues({ name: '', link: '' });
-  }, [isOpen, setValues]);
+    resetForm();
+  }, [isOpen, resetForm]);
 
   return (
     <PopupWithForm
@@ -21,11 +23,13 @@ function AddPlacePopup(props) {
       title='Новое место'
       isOpen={isOpen}
       onClose={onClose}
+      isValid={isValid}
       onSubmit={handleSubmit}
       buttonText={isLoading ? 'Сохранение...' : 'Создать'}
     >
       <input
-        className='form__input form__input_place_popup form__input_type_place-name'
+        className={`form__input form__input_place_popup form__input_type_place-name ${
+          errors.name && 'form__input_type_error'}`}
         name='name'
         value={values.name || ''}
         onChange={handleChange}
@@ -36,9 +40,12 @@ function AddPlacePopup(props) {
         maxLength='30'
         required
       />
-      <span className='form__error place-name-input-error' />
+      <span className={`form__error place-name-input-error ${
+            isOpen && !isValid && 'form__error_visible'
+          }`}>{errors.name}</span>
       <input
-        className='form__input form__input_place_popup form__input_type_url'
+        className={`form__input form__input_place_popup form__input_type_url ${
+          errors.link && 'form__input_type_error'}`}
         name='link'
         value={values.link || ''}
         onChange={handleChange}
@@ -47,7 +54,9 @@ function AddPlacePopup(props) {
         placeholder='Ссылка на картинку'
         required
       />
-      <span className='form__error picture-link-input-error' />
+      <span className={`form__error picture-link-input-error ${
+            isOpen && !isValid && 'form__error_visible'
+          }`}>{errors.link}</span>
     </PopupWithForm>
   );
 }

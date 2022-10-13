@@ -251,6 +251,7 @@ function App() {
             path='/sign-in'
             element={
               <AuthForm
+                key='0'
                 heading='Вход'
                 buttonText='Войти'
                 onSubmit={handleLogin}
@@ -261,6 +262,7 @@ function App() {
             path='/sign-up'
             element={
               <AuthForm
+                key='1'
                 heading='Регистрация'
                 buttonText='Зарегистрироваться'
                 onSubmit={handleRegister}

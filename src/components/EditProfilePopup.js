@@ -1,12 +1,14 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { useForm } from '../hooks/useForm';
+import useFormAndValidation from '../hooks/useFormAndValidation';
+
 
 function EditPropfilePopup(props) {
   const { isOpen, onClose, isLoading, onUpdateUser } = props;
+  const { values, setValues, errors, isValid, handleChange } =
+  useFormAndValidation();
   const currentUser = React.useContext(CurrentUserContext);
-  const { values, setValues, handleChange } = useForm({});
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -23,11 +25,13 @@ function EditPropfilePopup(props) {
       title='Редактировать профиль'
       isOpen={isOpen}
       onClose={onClose}
+      isValid={isValid}
       onSubmit={handleSubmit}
       buttonText={isLoading ? 'Сохранение...' : 'Сохранить'}
     >
       <input
-        className='form__input form__input_place_popup form__input_type_name'
+        className={`form__input form__input_place_popup form__input_type_name ${
+          errors.name && 'form__input_type_error'}`}
         name='name'
         id='user-name-input'
         type='text'
@@ -38,9 +42,12 @@ function EditPropfilePopup(props) {
         maxLength='40'
         required
       />
-      <span className='form__error user-name-input-error'></span>
+      <span className={`form__error user-name-input-error ${
+            isOpen && !isValid && 'form__error_visible'
+          }`}>{errors.name}</span>
       <input
-        className='form__input form__input_place_popup form__input_type_job'
+        className={`form__input form__input_place_popup form__input_type_job ${
+          errors.about && 'form__input_type_error'}`}
         name='about'
         id='user-job-input'
         type='text'
@@ -51,7 +58,9 @@ function EditPropfilePopup(props) {
         maxLength='200'
         required
       />
-      <span className='form__error user-job-input-error'></span>
+      <span className={`form__error user-job-input-error ${
+            isOpen && !isValid && 'form__error_visible'
+          }`}>{errors.about}</span>
     </PopupWithForm>
   );
 }
