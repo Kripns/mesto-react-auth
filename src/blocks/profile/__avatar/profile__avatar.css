@@ -32,6 +32,10 @@
   transform-origin: bottom left;
 }
 
+.profile__avatar:hover {
+  color: white;
+}
+
 @media screen and (max-width: 768px) {
   .profile__avatar {
     margin: 0;
